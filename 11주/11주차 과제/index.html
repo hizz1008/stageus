@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css">
+  
+    <link rel="stylesheet" type="text/css" href="./css/header.css">
+    <link rel="stylesheet" type="text/css" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/navSlide.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+      const MenuComponent = (props) => {
+        const menuToggleEvent = (e) => {
+          const navSlide = document.querySelector(".navSlide");
+          const backgroundDiv = document.querySelector(".backgroundDiv");
+          if (backgroundDiv.classList.contains("displayNone")) {
+            navSlide.style.left = "0%";
+            backgroundDiv.classList.remove("displayNone");
+          } else {
+            navSlide.style.left = "-100%";
+            backgroundDiv.classList.add("displayNone");
+          }
+        };
+
+        const menuMouseOverEvent = (e) => {
+          const target = e.target.parentNode;
+          target.style.backgroundColor = "var(--color-cccccc)";
+        };
+
+        const menuMouseOutEvent = (e) => {
+          const target = e.target.parentNode;
+          target.style.backgroundColor = "inherit";
+        };
+
+        const {menuContainerClassName} = props.menuHeader
+        return (
+          <div className={menuContainerClassName} onClick={menuToggleEvent}>
+            <div className="menuBarDiv">
+              <img className="menuBar" src="./week2Img/menuBtn.png" alt="메뉴 버튼"  onMouseOver={menuMouseOverEvent} onMouseOut={menuMouseOutEvent}/>
+            </div>
+            <a className="mainLogo" href="index.html">
+              <img
+                src="./week2Img/mainLogo.jpg"
+                alt="유튜브 메인로고"
+                id="logoImg"
+              />
+            </a>
+          </div>
+        );
+      };
+
+      const IconBtnComponent = (props) => {
+        const {
+          key,
+          className,
+          iconId,
+          iconClassName,
+          pTagClassName,
+          textContent,
+          onMouseOver,
+          onMouseOut,
+        } = props.iconData;
+        return (
+          <div key={key} className={className}>
+            <i id={iconId} className={iconClassName} onMouseOver={onMouseOver} onMouseOut={onMouseOut}></i>
+            <p className={pTagClassName}>{textContent}</p>
+          </div>
+        );
+      };
+
+
+
+      const HeaderComponent = () => {
+        const headerIconMouseOverEvent = (e)=>{
+          const target = e.target
+          const pTag = target.nextElementSibling
+          pTag.style.opacity = 1;
+        }
+        const headerIconMouseOutEvent = (e)=>{
+          const target = e.target
+          const pTag = target.nextElementSibling
+          pTag.style.opacity = 0;
+        }
+        const iconData = [
+          {
+            key: "pulsIcon",
+            className: "plusContainer",
+            iconId: "plusIcon",
+            iconClassName: "fa-regular fa-square-plus",
+            pTagClassName: "plusBtnAlt Alt",
+            textContent: "만들기",
+            onMouseOver: headerIconMouseOverEvent,
+            onMouseOut: headerIconMouseOutEvent,
+          },
+          {
+            key: "bellIcon",
+            className: "bellContainer",
+            iconId: "bellIcon",
+            iconClassName: "fa-regular fa-bell",
+            pTagClassName: "bellBtnAlt Alt",
+            textContent: "알림",
+            onMouseOver: headerIconMouseOverEvent,
+            onMouseOut: headerIconMouseOutEvent,
+          },
+        ];
+
+        return (
+          <header className="header">
+            <MenuComponent  menuHeader={{ menuContainerClassName: "menuContainer" }}/>
+            <section className="center">
+              <div className="searchBarContainer">
+                <input
+                  id="searchInput"
+                  className="searchInput"
+                  type="text"
+                  placeholder="검색"
+                />
+
+                <i id="keybordImg" className="fa-solid fa-keyboard"></i>
+              </div>
+              <div className="searchBtnContainer">
+                <i
+                  className="fa-solid fa-magnifying-glass"
+                  id="searchGlass"
+                ></i>
+              </div>
+              <div className="voiceBtnContainer">
+                <i id="voiceIcon" className="fa-solid fa-microphone" onMouseOver={headerIconMouseOverEvent} onMouseOut={headerIconMouseOutEvent}></i>
+                <p className="voiceBtnAlt Alt">음성으로 검색</p>
+              </div>
+            </section>
+            <section className="right">
+              {iconData.map((elem) => {
+                return <IconBtnComponent iconData={elem} key={elem.key} />;
+              })}
+              <i
+                id="userIcon"
+                className="fa-regular fa-circle-user"
+                aria-hidden="true"
+              ></i>
+            </section>
+          </header>
+        );
+      };
+
+      const NavIconComponent = (props)=>{
+        const navIconMouseOverEvent = (e)=>{
+          if(e.target.tagName === "DIV" || e.target.tagName === "I" || e.target.tagName === "P"){
+
+            const target = e.target.closest("div")
+            target.style.backgroundColor = "var(--color-f2f2f2)"
+          }
+        }
+    
+        const navIconMouseOutEvent = (e)=>{
+          if(e.target.tagName === "DIV" || e.target.tagName === "I" || e.target.tagName === "P"){
+
+          const target = e.target.closest("div")
+          target.style.backgroundColor = "inherit"
+          }
+        }
+        const {
+          key,
+          id,
+          className,
+          iconClassName,
+          pTagClassName,
+          textContent,
+          onMouseOver,
+          onMouseOut,
+        } = props.iconData;
+        return (
+          <div key={key} id={id} className={className} onMouseOver={navIconMouseOverEvent} onMouseOut={navIconMouseOutEvent}>
+            <i className={iconClassName}></i>
+            <p className={pTagClassName}>{textContent}</p>
+          </div>
+        )
+      }
+      const NavComponent = ()=>{
+
+
+        const iconData = [
+          {
+            key:"home",
+            id:"home",
+            className:"home navSectionLogo",
+            iconClassName:"fa-solid fa-house",
+            pTagClassName:"navSectionText",
+            textContent:"홈",
+          },
+          {
+            key:"shorts",
+            id:"shorts",
+            className:"shorts navSectionLogo",
+            iconClassName:"fa-brands fa-youtube",
+            pTagClassName:"navSectionText",
+            textContent:"Shorts",
+          },
+          {
+            key:"subscriber",
+            id:"subscriber",
+            className:"subscriber navSectionLogo",
+            iconClassName:"fa-solid fa-pen-to-square",
+            pTagClassName:"navSectionText",
+            textContent:"Subscriber",
+          },
+          {
+            key:"locker",
+            id:"locker",
+            className:"locker navSectionLogo",
+            iconClassName:"fa-solid fa-photo-film",
+            pTagClassName:"navSectionText",
+            textContent:"보관함",
+          },
+        ];
+        return (
+          <nav className="nav">
+            {iconData.map((elem)=>{
+              return <NavIconComponent iconData={elem} key={elem.key} />
+            })}
+          </nav>
+        )
+      }
+      const NavSlideComponent = ()=>{
+        const iconData = [
+          {
+            key: "navSlideHomeLogo",
+            className: "navSlideSectionLogo",
+            iconId: "navSlideIcon",
+            iconClassName: "fa-solid fa-house",
+            pTagClassName: "navSlideSectionText",
+            textContent: "홈",
+          },
+          {
+            key: "navSlideShortsLogo",
+            className: "navSlideSectionLogo",
+            iconId: "navSlideIcon",
+            iconClassName: "fa-brands fa-youtube",
+            pTagClassName: "navSlideSectionText",
+            textContent: "Shorts",
+          },
+          {
+            key: "navSlideSubScriberLogo",
+            className: "navSlideSectionLogo",
+            iconId: "navSlideIcon",
+            iconClassName: "fa-solid fa-pen-to-square",
+            pTagClassName: "navSlideSectionText",
+            textContent: "SubScriber",
+          },
+          {
+            key: "navSlideLockerLogo",
+            className: "navSlideSectionLogo",
+            iconId: "navSlideIcon",
+            iconClassName: "fa-solid fa-photo-film",
+            pTagClassName: "navSlideSectionText",
+            textContent: "보관함",
+          },
+        ]
+        return(
+            <nav className="navSlide">
+              <MenuComponent  menuHeader={{ menuContainerClassName: "navSlideHeader" }}/>
+              {iconData.map(elem=>{
+                return <NavIconComponent iconData={elem} key={elem.key} />
+              })}
+            </nav>
+        )
+      }
+      const NavSlideBackgroundComponent = ()=>{
+        return (
+          <div className="backgroundDiv displayNone">
+          </div>
+        )
+      }
+
+
+      const App = () => {
+        ReactDOM.createRoot(document.getElementById("root")).render(
+          <React.Fragment>
+            <HeaderComponent />
+            <NavComponent />
+            <NavSlideBackgroundComponent />
+            <NavSlideComponent />
+          </React.Fragment>
+        );
+      };
+
+      window.onload = () => {
+        App();
+      };
+    </script>
+    <script
+      src="https://kit.fontawesome.com/e8e74eadbe.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

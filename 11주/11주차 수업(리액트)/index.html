@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      //내가 만들려고 하는 컴포넌트 구조
+      // const div = document.createElement("div");
+      // const div = React.createElement("div", {});
+
+      // // const p = document.createElement("p");
+      // // p.innerHTML = "아이디";
+      // const p = React.createElement("p", {}, "아이디");
+
+      // div.appendChild(p);
+
+      // // const input = document.createElement("input");
+      // // input.type = "text";
+      // const input = React.createElement("input", { type: "text" });
+      // div.appendChild(input);
+
+      // return div;
+      // const root = document.getElementById("root");
+      // root.appendChild(inputArea());
+    </script>
+    <script type="text/babel">
+      const InputArea = (props) => {
+        const { name } = props;
+        return (
+          <div>
+            <p>{name}</p>
+            <input type="text" />
+          </div>
+        );
+      };
+      const InputContainer = () => {
+        const tmp = ["경은", "준연", "민석"];
+        // 프론트엔드 개발자가 반복을 위해 만들었을 수도 있고
+        // 백엔드에서 불러온 데이터일 수도 있다
+        // props의 시작지점이 중요
+        return (
+          <React.Fragment>
+            <h2>Input 목록</h2>
+            {tmp.map((elem) => (
+              <InputArea name={elem} />
+            ))}
+          </React.Fragment>
+        );
+      };
+      const App = () => {
+        ReactDOM.createRoot(document.getElementById("root")).render(
+          <InputContainer />
+        );
+      };
+
+      window.onload = () => {
+        App();
+      };
+    </script>
+  </body>
+</html>
