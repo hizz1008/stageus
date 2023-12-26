@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="../image/week3Img/baseBall.png" />
+    <link rel="stylesheet" href="../css/week3.css" type="text/css" />
+    <title>스테이지어스 3주차 과제</title>
+  </head>
+  <body>
+    <!-- header -->
+    <header class="header">
+      <img
+        id="baseBallImg"
+        draggable="false"
+        src="../image/week3Img/baseBall.png"
+        alt="baseBall"
+      />
+      <h1 class="mainTitle">BaseBall Game</h1>
+    </header>
+    <!-- /header -->
+
+    <main class="main">
+      <!-- resetPage -->
+      <div id="resetPage">
+        <h2 class="resetPageTitle">축하합니다 정답입니다</h2>
+        <input
+          class="resetPageBtn"
+          type="button"
+          value="reset"
+          onClick="reload()"
+        />
+      </div>
+      <!-- /resetPage -->
+      <!-- backgroundImg -->
+      <img
+        id="hitterImg"
+        draggable="false"
+        src="../image/week3Img/hitter.png"
+        alt="hitter image"
+      />
+      <!-- /backgroundImg -->
+      <!-- answer -->
+      <ul id="saveValue"></ul>
+      <article id="valueBox"></article>
+      <!-- /answer -->
+      <section class="buttons">
+        <input
+          class="Btn"
+          type="button"
+          value="1"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="2"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="3"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="4"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="5"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="6"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="7"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="8"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="Btn"
+          type="button"
+          value="9"
+          onclick="onClickEvent(event)"
+        />
+        <input
+          class="valueCheckBox Btn rightBtn"
+          type="button"
+          value="enter"
+          onclick="saveEvent()"
+        />
+        <input
+          class="Btn rightBtn"
+          type="button"
+          value="reset"
+          onclick="resetEvent()"
+        />
+      </section>
+    </main>
+    <script src="../js/week3.js"></script>
+  </body>
+</html>

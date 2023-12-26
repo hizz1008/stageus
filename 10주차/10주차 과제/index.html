@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css" />
+
+    <link rel="stylesheet" type="text/css" href="./css/header.css" />
+    <link rel="stylesheet" type="text/css" href="./css/nav.css" />
+    <link rel="stylesheet" href="./css/navSlide.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <title>10주차 과제</title>
+  </head>
+  <body>
+    <script src="./javascript/headerCreate.js"></script>
+    <script src="./javascript/headerEvent.js"></script>
+
+    <script src="./javascript/navSlideCreate.js"></script>
+    <script src="./javascript/navSlideEvent.js"></script>
+
+    <script src="./javascript/navCreate.js"></script>
+    <script src="./javascript/navEvent.js"></script>
+
+    <script src="./javascript/mainCreate.js"></script>
+    <script src="./javascript/mainEvent.js"></script>
+
+    <script
+      src="https://kit.fontawesome.com/e8e74eadbe.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      window.onload = () => {
+        headerCreate();
+        backgroundDivCreate();
+        navSlideCreate();
+        navCreate();
+        mainCreate();
+      };
+      //모든 코드안에 통일성 부족
+    </script>
+  </body>
+</html>

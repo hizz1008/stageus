@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #first {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+      }
+      #second {
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+      }
+      #third {
+        width: 100px;
+        height: 100px;
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="first" onclick="printColorEvent(event)">
+      <div id="second">
+        <div id="third"></div>
+      </div>
+    </div>
+    <script>
+      const printColorEvent = (e) => {
+        const targetId = e.target.id;
+        switch (targetId) {
+          case "first":
+            console.log("red");
+            break;
+          case "second":
+            console.log("orenge");
+            break;
+          case "third":
+            console.log("yellow");
+            break;
+        }
+      };
+
+      //Hoisting 설명
+      // var num1
+      // var num1
+      // function qwer() {
+      //   console.log("안녕")
+      // }
+      // function qwer() {
+      //   console.log("잘가")
+      // }
+
+      // num1 = 10
+      // console.log(num1)
+      // num1 = 20
+      // console.log(num1)
+
+      // qwer()
+      // qwer()
+
+      // console.log(number)
+      // var number = 30
+
+      // console.log(num1)
+      let num1 = 20;
+
+      //함수 선언식
+      function test1() {
+        console.log("test");
+      }
+
+      //함수 표현식
+      let test2 = function () {
+        console.log("test");
+      };
+
+      //함수 람다식
+      let test3 = () => {
+        console.log("test");
+      };
+
+      // 함수 람다식은 축약이 가능
+      // let power = (number)=>{
+      //   return number * number
+      // }
+      let power = (number) => number * number;
+
+      //표현식은 어떻게 돌아가는지 설명한다면 람다식은 결과에 더 집중함
+
+      const power1 = (number) => number * number;
+      //let은 변수, const는 상수
+      //때문에 함수를 선언할 때 기본적으로 const사용 그 밖에 값이 변하는 변수만을 let으로 선언
+
+      //편의기능
+      //TempLate Literals 백틱
+      // const name = "스테이지어스"
+      // console.log("내 이름은 " + name + "입니다.")
+      // console.log(`내 이름은 ${name} 입니다.`)
+
+      //Default Parameter 함수의 유현성을 위해 구현 (리덕스 할 때 사용)
+      // const circleOfArea = (radius, pie = 3.14)=>{
+      //   console.log(radius * radius * pie)
+      // }
+      // circleOfArea(5)
+      // circleOfArea(5, 3.141592)
+
+      //Spread list의 껍질을 벗겨주는 역할 object도 가능
+      // const list1 = [1,2,3,4,5]
+      // console.log(list1)
+      // console.log(...list1)
+      // const list2 = [6,7,8]
+      //많이 사용되는 예제 1
+      // const newList = [...list1, ...list2]
+      // console.log(newList)
+
+      //많이 사용되는 예제 2
+      //pass by value
+      //값은 매개변수로 보낼 때 카피값으로 보낸다
+      const number = 10;
+      const convert = (value) => {
+        value += 10;
+      };
+      // console.log(number); // 10
+      // convert(number);
+      // console.log(number); // 10
+
+      //pass by Reference
+      //자료구조는 매개변수로 보낼 때 카피값이 아닌 주소값으로 보낸다 list, object, hash, map등등
+      const list = [1, 2, 3];
+      const convertList = (list) => {
+        list[0] += 10;
+      };
+
+      // console.log(list); // [1,2,3]
+      // convertList([...list]); //적분과 미분
+      // console.log(list); // [11,2,3]
+
+      //정리하자면 spread를 사용해 list를 각각 쪼개서 새로운 list에 넣었기 때문에 새로운 값을 만든 것이다
+
+      // Destructuring (재배열)
+      const info = {
+        stageus: {
+          name: "스테이지어스",
+          birth: "2021년",
+          major: "개발",
+        },
+      };
+
+      const printObj = (obj) => {
+        // const name = obj.stageus.name
+
+        const { name, birth, major } = obj.stageus;
+        //자동으로 원본링크와 끊어짐
+
+        // console.log(obj.stageus.name)
+        // console.log(obj.stageus.name)
+        // console.log(obj.stageus.name)
+
+        console.log(name);
+        console.log(name);
+        console.log(name);
+      };
+      // printObj(info);
+
+      //List Helper
+      //list를 반복문과 함께 사용할 때 이를 간단하게 해주는 문법
+
+      const list2 = [1, 2, 3, 4, 5];
+      for (let i = 0; i < list2.length; i++) {
+        // console.log(list2[i]);
+      }
+      // forEach = 각각마다 뭘 하겠다
+      // list2.forEach((elem) => console.log(elem));
+
+      let sum = 0;
+
+      list2.forEach((elem) => (sum += elem));
+
+      // map = 각각마다 뭘 해서 저장하겠다
+      const newList = list2.map((elem) => elem * elem);
+      // console.log(newList);
+
+      // filter = 각각마다 필터링해서 저장하겠다
+      const newList2 = list2.filter((elem) => elem < 3);
+      // console.log(newList2);
+
+      // reduce = list값을 없애가며 한개의 값으로 만드는 작업 (자주 사용되진 않음)
+      const newValue = list2.reduce((elem, current) => {
+        return elem + current;
+      }, 0);
+      // console.log(newValue);
+
+      //더 있는데 찾아보셈 ES6
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+/* reset */
+body {
+  background-color: #202124;
+  color: white;
+  margin: 0;
+}
+h1 {
+  margin: 0;
+  font-size: 16px;
+}
+p {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  font-size: 16px;
+}
+/* /reset */

@@ -1,0 +1,504 @@
+/* reset*/
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+/* /reset */
+
+.header {
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+
+  width: 100%;
+  height: 3.75rem;
+
+  padding: 0 1rem;
+
+  background-color: white;
+
+  z-index: 1;
+}
+/* left */
+.left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+#menuBar {
+  font-size: 24px;
+  margin-left: 3px;
+
+  padding: 0.6rem 0.7rem;
+
+  cursor: pointer;
+}
+#menuBar:hover {
+  background-color: #f2f2f2;
+
+  border-radius: 50%;
+}
+.mainLogo {
+  display: flex;
+}
+#logoImg {
+  width: 5.9rem;
+  object-fit: contain;
+
+  padding-left: 2rem;
+}
+/* /left */
+
+/* center */
+.center {
+  display: flex;
+  align-items: center;
+  flex: 0 1 43.75rem;
+
+  margin-left: 6.25rem;
+}
+.search {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+.searchBar {
+  display: flex;
+  width: 100%;
+
+  position: relative;
+}
+.searchInput {
+  display: flex;
+
+  width: 100%;
+  height: 0.88rem;
+
+  padding: 0.63rem 0 0.63rem 1.8rem;
+
+  border-style: none;
+  border: 1px solid #cccccc;
+
+  border-radius: 20px 0 0 20px;
+}
+
+#keybord {
+  position: absolute;
+  right: 0.5rem;
+  line-height: 2.25rem;
+}
+.Btn {
+  display: flex;
+  position: relative;
+}
+#glass {
+  position: absolute;
+  left: 50%;
+  line-height: 2.25rem;
+  transform: translate(-50%);
+}
+.searchBtn {
+  width: 3.13rem;
+  height: 2.25rem;
+
+  border-style: none;
+  border-color: #f2f2f2;
+  border: 1px solid #cccccc;
+  border-radius: 0 20px 20px 0;
+  border-left: 0px;
+
+  background-color: #f8f8f8;
+}
+#voiceIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  cursor: pointer;
+}
+.voiceBtn {
+  background-color: #f2f2f2;
+
+  border-radius: 50%;
+
+  margin-left: 1.06rem;
+
+  position: relative;
+}
+.voiceBtn:hover {
+  background-color: #cccccc;
+}
+.Alt {
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: -60px;
+
+  padding: 5px 0;
+  margin: 0;
+
+  color: white;
+  font-size: 0.8rem;
+
+  border-radius: 5px;
+
+  background-color: #1f1f1faf;
+
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+.voiceBtnAlt {
+  width: 80px;
+  height: 30px;
+}
+.mediaSearchBar {
+  position: relative;
+  margin-right: 1rem;
+}
+#mediaGlassIcon {
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  text-align: center;
+}
+#mediaGlassIcon:hover {
+  background-color: #cccccc;
+}
+.mediaGlassIconAlt {
+  width: 35px;
+}
+/* /center */
+
+/* right */
+.right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: fit-content;
+
+  margin-left: 6.25rem;
+
+  font-size: 23px;
+
+  padding-right: 0.63rem;
+}
+.plus {
+  position: relative;
+  border-radius: 50%;
+}
+#plusIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  cursor: pointer;
+}
+.plus:hover {
+  background-color: #cccccc;
+}
+.plusBtnAlt {
+  width: 50px;
+  height: 30px;
+}
+.bell {
+  position: relative;
+}
+#bellIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  cursor: pointer;
+}
+.bell:hover {
+  border-radius: 50%;
+  background-color: #cccccc;
+}
+.bellBtnAlt {
+  width: 50px;
+  height: 30px;
+}
+.userIcon {
+  width: 2.5rem;
+
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.marginLeftIcon {
+  margin-left: 1rem;
+}
+/* /right */
+
+/* NAV */
+
+.nav {
+  width: 4.5rem;
+  height: 100vh;
+
+  position: fixed;
+  top: 3.75rem;
+  left: 0px;
+
+  padding: 0 4px;
+
+  background-color: white;
+}
+
+#navImg {
+  height: 1.5rem;
+}
+
+.navSectionLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  padding: 1.5rem 0 0.8rem;
+
+  border-radius: 10px;
+
+  color: black;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  font-size: 24px;
+}
+.navSectionLogo:hover {
+  background-color: #f2f2f2;
+}
+.navSectionText {
+  font-size: 0.5rem;
+  font-weight: 400;
+
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.fadeSection {
+  display: none;
+  width: 100vw;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.fadeNav {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -240px;
+
+  transition: left 0.5s ease-in-out;
+
+  background-color: white;
+  z-index: 1;
+}
+.fadeLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+
+  height: 70px;
+
+  margin-left: 15px;
+  margin-right: 74px;
+}
+#fademenuBar {
+  font-size: 24px;
+
+  padding: 10px;
+
+  cursor: pointer;
+}
+#fademenuBar:hover {
+  background-color: #f2f2f2;
+
+  border-radius: 50%;
+}
+#fadeLogoImg {
+  width: 5.9rem;
+  object-fit: contain;
+
+  padding-left: 1rem;
+}
+.fadeNavSectionLogo {
+  display: flex;
+
+  align-items: center;
+
+  padding: 8px 0 8px 25px;
+
+  border-radius: 10px;
+
+  color: black;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  font-size: 24px;
+}
+.fadeNavSectionLogo:hover {
+  background-color: #f2f2f2;
+}
+.fadeNavSectionText {
+  font-size: 0.5rem;
+  font-weight: 400;
+
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+
+  padding-left: 30px;
+}
+/* /NAV */
+
+/* article */
+.videoSection {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+
+  /* background-color: rgb(143, 143, 143); */
+  width: 100%;
+
+  /* 반응형과 vw, vh 이슈 검색 */
+
+  padding-top: 3.75rem;
+  padding-left: 4rem;
+  margin-left: 1rem;
+  margin-top: 0.63rem;
+}
+
+.video {
+  display: flex;
+
+  flex-direction: column;
+  flex: 1 1 18rem;
+  /* 풀어서 사용할 것 */
+
+  margin-right: 1.8rem;
+  height: fit-content;
+
+  cursor: pointer;
+
+  position: relative;
+}
+#vUser {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+
+.vImg {
+  display: flex;
+  width: 100%;
+  object-fit: contain;
+
+  border-radius: 0.6rem;
+
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+.vImgRunningTime {
+  color: white;
+
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+#dot {
+  display: none;
+  opacity: 0.8;
+
+  position: absolute;
+  right: 8px;
+
+  font-size: 18px;
+}
+.vInfo {
+  display: flex;
+
+  margin: 0.7rem 0;
+}
+.vInfoText {
+  margin-left: 1rem;
+}
+.vTitle {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1rem;
+}
+.vData {
+  margin: 0;
+  color: black;
+  opacity: 0.6;
+}
+.vUserName {
+  margin: 0.5rem 0 0.2rem 0;
+  font-size: 0.8rem;
+}
+.vMetaData {
+  font-size: 0.8rem;
+}
+/* 미디어 쿼리 만들기
+네브바 애니메이션 */
+@media (max-width: 720px) {
+  #mediaGlassIcon {
+    display: flex;
+  }
+
+  .center {
+    display: none;
+  }
+}

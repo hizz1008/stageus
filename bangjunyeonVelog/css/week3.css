@@ -1,0 +1,126 @@
+/* reset */
+body {
+  background-color: #9a2415;
+  margin: 0;
+}
+input {
+  background: inherit;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+/* /reset */
+
+/* img */
+#baseBallImg {
+  width: 20px;
+}
+#hitterImg {
+  width: 500px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  opacity: 0.8;
+  z-index: -1;
+}
+/* /img */
+
+/* header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.mainTitle {
+  margin: 0 0 0 15px;
+  font-size: 80px;
+}
+/* /header */
+
+/* main */
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#saveValue {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+#valueBox {
+  color: white;
+}
+
+/* section */
+.buttons {
+  border-radius: 5px;
+}
+.Btn {
+  background-color: white;
+
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  width: 50px;
+  height: 50px;
+
+  font-size: 20px;
+  padding: 2px 10px;
+  margin: 2px;
+}
+.rightBtn {
+  width: 80px;
+}
+.buttons {
+  position: fixed;
+  bottom: 15px;
+  display: flex;
+}
+/* /section */
+
+/* /main */
+
+/* resetPage */
+#resetPage {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(255, 255, 255, 0.8);
+
+  z-index: 1;
+}
+.resetPageTitle {
+  margin: 0 0 5px 0;
+}
+.resetPageBtn {
+  padding: 5px;
+  background-color: white;
+  border-radius: 6px;
+}
+/* /resetPage */

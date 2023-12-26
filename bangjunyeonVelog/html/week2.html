@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="../image/week2Img/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="../css/week2.css" />
+    <title>스테이지어스 2주차 과제</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="left">
+        <i id="menuBar" class="fa-solid fa-bars" onclick="toggleFadeMenu()"></i>
+
+        <a class="mainLogo" href="index.html">
+          <img
+            src="../image/week2Img/mainLogo.jpg"
+            alt="유튜브 메인로고"
+            id="logoImg"
+          />
+        </a>
+      </div>
+
+      <div class="center">
+        <div class="searchBar">
+          <input class="searchInput" type="text" />
+          <i id="keybord" class="fa-solid fa-keyboard"></i>
+        </div>
+        <div class="Btn">
+          <button class="searchBtn"></button>
+          <i id="glass" class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <div class="voiceBtn">
+          <i
+            id="voiceIcon"
+            class="fa-solid fa-microphone"
+            onmouseover="altMouseOver(event)"
+            onmouseout="altMouseOut(event)"
+          ></i>
+          <p class="voiceBtnAlt Alt">음성으로 검색</p>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="mediaSearchBar">
+          <i
+            id="mediaGlassIcon"
+            class="fa-solid fa-magnifying-glass"
+            onmouseover="altMouseOver(event)"
+            onmouseout="altMouseOut(event)"
+          ></i>
+          <p class="mediaGlassIconAlt Alt">검색</p>
+        </div>
+        <div class="plus">
+          <i
+            id="plusIcon"
+            class="fa-regular fa-square-plus"
+            onmouseover="altMouseOver(event)"
+            onmouseout="altMouseOut(event)"
+          ></i>
+          <p class="plusBtnAlt Alt">만들기</p>
+        </div>
+        <div class="bell marginLeftIcon">
+          <i
+            id="bellIcon"
+            class="fa-regular fa-bell"
+            onmouseover="altMouseOver(event)"
+            onmouseout="altMouseOut(event)"
+          >
+          </i>
+          <p class="bellBtnAlt Alt">알림</p>
+        </div>
+        <i class="fa-regular fa-circle-user marginLeftIcon userIcon"></i>
+      </div>
+    </header>
+
+    <div class="fadeSection"></div>
+
+    <nav class="fadeNav">
+      <div class="fadeLeft">
+        <i
+          id="fademenuBar"
+          class="fa-solid fa-bars"
+          onclick="toggleFadeMenu()"
+        ></i>
+
+        <a class="mainLogo" href="index.html">
+          <img
+            src="../image/week2Img/mainLogo.jpg"
+            alt="유튜브 메인로고"
+            id="fadeLogoImg"
+          />
+        </a>
+      </div>
+      <a class="home fadeNavSectionLogo" href="#">
+        <i class="fa-solid fa-house"></i>
+        <p class="fadeNavSectionText">홈</p>
+      </a>
+      <a class="shorts fadeNavSectionLogo" href="#">
+        <img
+          id="navImg"
+          src="../image/week2Img/shortsLogo.png"
+          alt="유튜브 쇼츠"
+        />
+        <p class="fadeNavSectionText">shorts</p>
+      </a>
+      <a class="subscription fadeNavSectionLogo">
+        <img id="navImg" src="img/subscriptionLogo.png" alt="유튜브 구독" />
+        <p class="fadeNavSectionText">구독</p>
+      </a>
+      <a class="locker fadeNavSectionLogo">
+        <i class="fa-solid fa-photo-film"></i>
+        <p class="fadeNavSectionText">보관함</p>
+      </a>
+    </nav>
+
+    <nav class="nav">
+      <a class="home navSectionLogo" href="#">
+        <i class="fa-solid fa-house"></i>
+        <p class="navSectionText">홈</p>
+      </a>
+      <a class="shorts navSectionLogo" href="#">
+        <img
+          id="navImg"
+          src="../image/week2Img/shortsLogo.png"
+          alt="유튜브 쇼츠"
+        />
+        <p class="navSectionText">shorts</p>
+      </a>
+      <a class="subscription navSectionLogo">
+        <img
+          id="navImg"
+          src="../image/week2Img/subscriptionLogo.png"
+          alt="유튜브 구독"
+        />
+        <p class="navSectionText">구독</p>
+      </a>
+      <a class="locker navSectionLogo">
+        <i class="fa-solid fa-photo-film"></i>
+        <p class="navSectionText">보관함</p>
+      </a>
+    </nav>
+
+    <main class="videoSection">
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <!-- event 내가 실행한 모든 정보를 매개변수로 받겠다 -->
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="video">
+        <div class="vImg">
+          <img
+            class="vImg"
+            src="../image/week2Img/stageus.jpeg"
+            alt="스테이지어스"
+            onmouseover="videoMouseOver(event),runningTime(event)"
+            onmouseout="videoMouseOut(event),runningTimeOut(event)"
+          />
+          <p class="vImgRunningTime"></p>
+        </div>
+
+        <div
+          class="vInfo"
+          onmouseover="videoInfoMouseOver(event)"
+          onmouseout="videoInfoMouseOut(event)"
+        >
+          <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+          <img
+            id="vUser"
+            src="../image/week2Img/stageus.jpeg"
+            alt="사용자 프로필"
+          />
+          <div class="vInfoText">
+            <h1 class="vTitle">인정받는 개발자를 만듭니다.</h1>
+            <div class="vData">
+              <p class="vUserName">스테이지어스</p>
+              <span class="vMetaData">조회수 13만회</span>
+              <span class="vMetaData">• 1개월 전</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/e8e74eadbe.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="../js/week2.js"></script>
+</html>

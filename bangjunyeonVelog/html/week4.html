@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../css/week4.css" />
+    <link rel="icon" type="image/png" href="../image/week4Img/favicon/favicon.png">
+    <title>퍼즐</title>
+  </head>
+  <body>
+    <!-- 시작화면 -->
+  <div id="startLayout">
+ 
+    <input
+      onclick="startClickEvent(event)"
+      type="button"
+      value="초급"
+      data-index="1"
+      class="startBtn btn"
+    />
+    <input
+      onclick="startClickEvent(event)"
+      type="button"
+      value="중급"
+      data-index="2"
+      class="startBtn btn"
+    />
+    <input
+      onclick="startClickEvent(event)"
+      type="button"
+      value="고급"
+      data-index="3"
+      class="startBtn btn"
+    />
+  </div>
+    <!-- /시작화면 -->
+    <!-- 리셋화면 -->
+    <div id="resetLayout">
+      <p class="resetTitle"></p>
+      <input
+        onclick="reloadClickEvent()"
+        type="button"
+        value="reset"
+        class="resetBtn btn"
+      />
+    </div>
+    <!-- /리셋화면 -->
+
+    <!-- header -->
+    <header class="header">
+
+      <div class="timer">0:00</div>
+      <input
+        class="hint"
+        type="button"
+        value="힌트"
+        onclick="hintClickEvent(event)"
+        
+      />
+      <input class="hintImgBtn" type="button" value="미리보기" onclick="hintImgClickEvent()">
+
+    </header class="header">
+    <!-- /header -->
+
+    <!-- hint section -->
+    <div class="hintImgSection">
+      <input type="button"  value="close" onclick="closeClickEvent(event)">
+      <img class="hintImg" src="" alt="미리보기 이미지">
+    </div>
+    <!-- hint section -->
+    
+    <!-- main -->
+    <main class="main">
+
+      <section class="pieces box"></section>
+
+      <section class="dest box"></section>
+
+      <input
+        class="ckeckAnswerBtn btn"
+        type="button"
+        value="정답 확인"
+        onclick="checkAnserClickEvent()"
+      />
+    </main>
+    <!-- /main -->
+  </body>
+  <script src="../js/week4.js"></script>
+</html>

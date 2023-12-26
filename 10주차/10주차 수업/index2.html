@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="parent" onclick="printValue(event)">
+      <input type="button" value="경은" />
+      <input type="button" value="준연" />
+    </div>
+    <input type="button" value="추가" onclick="add()" />
+    <script>
+      const printValue = (e) => {
+        console.log(e.target.value);
+      };
+      const add = () => {
+        const tmpInput = document.createElement("input");
+        tmpInput.value = "민석";
+        tmpInput.type = "button";
+        document.getElementById("parent").appendChild(tmpInput);
+      };
+    </script>
+  </body>
+</html>
