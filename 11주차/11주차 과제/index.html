@@ -289,6 +289,130 @@
         )
       }
 
+      const VideoArticleComponent = (props)=>{
+        const {title,userName,metaData} = props.videoTextData
+
+        const videoMouseOverEvent = (e)=>{
+          if(e.target.tagName === "ARTICLE" || e.target.tagName === "DIV" || e.target.tagName === "IMG" || e.target.tagName === "p" || e.target.tagName === "H1" || e.target.tagName === "SPAN"){
+            const target = e.target.closest("img");
+            target.style.borderRadius = "0";
+            target.style.filter = "brightness(80%)";
+          }
+        }
+
+        const videoMouseOutEvent = (e)=>{
+          if(e.target.tagName === "ARTICLE" || e.target.tagName === "DIV" || e.target.tagName === "IMG" || e.target.tagName === "p" || e.target.tagName === "H1" || e.target.tagName === "SPAN"){
+            const target = e.target.closest("img");
+            target.style.borderRadius = "10px";
+            target.style.filter = "brightness(100%)";
+          }
+        }
+        return(
+          <article id="videoArticle" class="videoArticle" onMouseOver={videoMouseOverEvent} onMouseOut={videoMouseOutEvent}>
+            <div class="videoImgDiv">
+              <img id="videoImg" class="videoImg" src="./week2Img/stageus.jpeg" alt="스테이지어스"/>
+            </div>
+            <div class="videoInfo">
+              <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+              <img id="videoUserImg" src="./week2Img/stageus.jpeg" alt="사용자 프로필" />
+              <div class="videoInfoText">
+                <h1 class="videoTitle">{title}</h1>
+                <div class="videoData">
+                  <p class="videoUserName">{userName}</p>
+                  <span class="videoMetaData">{metaData}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        )
+      }
+      const MainComponent = ()=>{
+        const videoTextData = [
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+          {
+            title:"인정받는 개발자를 만듭니다.",
+            userName:"스테이지어스",
+            metaData:"조회수 13만회 • 1개월 전",
+          },
+        ]
+
+        return (
+          <main className="videoMain">
+            {videoTextData.map((elem,index)=>{
+              return <VideoArticleComponent videoTextData={elem} key={index} />
+            })}
+          </main>
+        )
+      }
 
       const App = () => {
         ReactDOM.createRoot(document.getElementById("root")).render(
@@ -297,6 +421,7 @@
             <NavComponent />
             <NavSlideBackgroundComponent />
             <NavSlideComponent />
+            <MainComponent />
           </React.Fragment>
         );
       };
