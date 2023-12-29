@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const Calculator = () => {
+        const [num1, setNum1] = React.useState(0);
+        const [num2, setNum2] = React.useState(0);
+
+        const calEvent = () => {
+          // num1 = parseInt(document.querySelector("#fitst").value) 해당 state에 값이 바뀌긴 하지만, VD가 인지하지 못함 아래의 방법이 VD가 인식하는 방법
+          setNum1(parseInt(document.querySelector("#first").value));
+          setNum2(parseInt(document.querySelector("#second").value));
+
+          // document.querySelector("#plus").innerHTML = num1 + num2;
+          // document.querySelector("#minus").innerHTML = num1 - num2;
+          // document.querySelector("#mul").innerHTML = num1 * num2;
+          // document.querySelector("#div").innerHTML = num1 / num2;
+        };
+        // 그렇기 때문에 num1은 우리가 바라보는 변수 setNum1은 가상돔이 감시하는 Set변수(Set State)
+
+        return (
+          <React.Fragment>
+            <input type="text" id="first" onChange={calEvent} />
+            <input type="text" id="second" onChange={calEvent} />
+            <p id="plus">{num1 + num2}</p>
+            <p id="minus">{num1 - num2}</p>
+            <p id="mul">{num1 * num2}</p>
+            <p id="div">{num1 / num2}</p>
+          </React.Fragment>
+        );
+      };
+      const App = () => {
+        return <Calculator />;
+      };
+
+      window.onload = () => {
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+      };
+    </script>
+  </body>
+</html>

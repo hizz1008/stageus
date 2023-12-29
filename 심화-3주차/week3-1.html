@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const ThirdPatry = () => {
+        const [isShow, setIsShow] = React.useState(true);
+        const clickEvent = () => {
+          setIsShow(!isShow);
+        };
+        return (
+          <React.Fragment>
+            {isShow ? <p>3 번째</p> : null}
+            <input type="button" value="3 번째 감추기" onClick={clickEvent} />
+          </React.Fragment>
+        );
+      };
+
+      const List = () => {
+        return (
+          <React.Fragment>
+            <p>1 번째</p>
+            <p>2 번째</p>
+            <ThirdPatry />
+          </React.Fragment>
+        );
+      };
+
+      const App = () => {
+        return <List />;
+      };
+
+      window.onload = () => {
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+      };
+    </script>
+  </body>
+</html>

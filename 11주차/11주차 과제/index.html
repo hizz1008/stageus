@@ -74,12 +74,10 @@
           iconClassName,
           pTagClassName,
           textContent,
-          onMouseOver,
-          onMouseOut,
         } = props.iconData;
         return (
           <div key={key} className={className}>
-            <i id={iconId} className={iconClassName} onMouseOver={onMouseOver} onMouseOut={onMouseOut}></i>
+            <i id={iconId} className={iconClassName}></i>
             <p className={pTagClassName}>{textContent}</p>
           </div>
         );
@@ -92,11 +90,16 @@
           const target = e.target
           const pTag = target.nextElementSibling
           pTag.style.opacity = 1;
+          console.log(1)
         }
         const headerIconMouseOutEvent = (e)=>{
           const target = e.target
           const pTag = target.nextElementSibling
           pTag.style.opacity = 0;
+          console.log(2)
+        }
+        const testClick = ()=>{
+          console.log("안녕")
         }
         const iconData = [
           {
@@ -106,8 +109,7 @@
             iconClassName: "fa-regular fa-square-plus",
             pTagClassName: "plusBtnAlt Alt",
             textContent: "만들기",
-            onMouseOver: headerIconMouseOverEvent,
-            onMouseOut: headerIconMouseOutEvent,
+
           },
           {
             key: "bellIcon",
@@ -116,8 +118,6 @@
             iconClassName: "fa-regular fa-bell",
             pTagClassName: "bellBtnAlt Alt",
             textContent: "알림",
-            onMouseOver: headerIconMouseOverEvent,
-            onMouseOut: headerIconMouseOutEvent,
           },
         ];
 
@@ -148,13 +148,17 @@
             </section>
             <section className="right">
               {iconData.map((elem) => {
-                return <IconBtnComponent iconData={elem} key={elem.key} />;
+                return <IconBtnComponent iconData={elem} key={elem.key} onClick={testClick} onMouseOver={headerIconMouseOverEvent} onMouseOut={headerIconMouseOutEvent
+                }/>;
+                //해결만 해옴
+                //알아오기
               })}
               <i
                 id="userIcon"
                 className="fa-regular fa-circle-user"
                 aria-hidden="true"
               ></i>
+              {/*위 버튼도 함께 컴포넌트로 만드는 것이 코드적으로 맞음*/}
             </section>
           </header>
         );
@@ -190,12 +194,11 @@
           <div key={key} id={id} className={className} onMouseOver={navIconMouseOverEvent} onMouseOut={navIconMouseOutEvent}>
             <i className={iconClassName}></i>
             <p className={pTagClassName}>{textContent}</p>
+            {/*이벤트에 동작 구조가 해당 자식 컴포넌트이기 때문에 nav icon에 넣어 응집도를 높히는 것이 더욱 효율적*/}
           </div>
         )
       }
       const NavComponent = ()=>{
-
-
         const iconData = [
           {
             key:"home",
@@ -293,33 +296,39 @@
         const {title,userName,metaData} = props.videoTextData
 
         const videoMouseOverEvent = (e)=>{
-          if(e.target.tagName === "ARTICLE" || e.target.tagName === "DIV" || e.target.tagName === "IMG" || e.target.tagName === "p" || e.target.tagName === "H1" || e.target.tagName === "SPAN"){
-            const target = e.target.closest("img");
-            target.style.borderRadius = "0";
-            target.style.filter = "brightness(80%)";
-          }
+          // if(e.target.tagName === "ARTICLE" || e.target.tagName === "DIV" || e.target.tagName === "IMG" || e.target.tagName === "P" || e.target.tagName === "H1" || e.target.tagName === "SPAN"){
+            const target = e.target.closest("article");
+            const targetImg = target.querySelector("#videoImg")
+            targetImg.style.borderRadius = "0";
+            targetImg.style.filter = "brightness(80%)";
+          // }else{
+          //   return
+          // }
         }
 
         const videoMouseOutEvent = (e)=>{
-          if(e.target.tagName === "ARTICLE" || e.target.tagName === "DIV" || e.target.tagName === "IMG" || e.target.tagName === "p" || e.target.tagName === "H1" || e.target.tagName === "SPAN"){
-            const target = e.target.closest("img");
-            target.style.borderRadius = "10px";
-            target.style.filter = "brightness(100%)";
-          }
+          // if(e.target.tagName === "ARTICLE" || e.target.tagName === "DIV" || e.target.tagName === "IMG" || e.target.tagName === "P" || e.target.tagName === "H1" || e.target.tagName === "SPAN"){
+            const target = e.target.closest("article");
+            const targetImg = target.querySelector("#videoImg")
+            targetImg.style.borderRadius = "10px";
+            targetImg.style.filter = "brightness(100%)";
+          // }else{
+          //   return
+          // }
         }
         return(
-          <article id="videoArticle" class="videoArticle" onMouseOver={videoMouseOverEvent} onMouseOut={videoMouseOutEvent}>
-            <div class="videoImgDiv">
-              <img id="videoImg" class="videoImg" src="./week2Img/stageus.jpeg" alt="스테이지어스"/>
+          <article id="videoArticle" className="videoArticle" onMouseOver={videoMouseOverEvent} onMouseOut={videoMouseOutEvent}>
+            <div className="videoImgDiv">
+              <img id="videoImg" className="videoImg" src="./week2Img/stageus.jpeg" alt="스테이지어스"/>
             </div>
-            <div class="videoInfo">
-              <i id="dot" class="fa-solid fa-ellipsis-vertical"></i>
+            <div className="videoInfo">
+              <i id="dot" className="fa-solid fa-ellipsis-vertical"></i>
               <img id="videoUserImg" src="./week2Img/stageus.jpeg" alt="사용자 프로필" />
-              <div class="videoInfoText">
-                <h1 class="videoTitle">{title}</h1>
-                <div class="videoData">
-                  <p class="videoUserName">{userName}</p>
-                  <span class="videoMetaData">{metaData}</span>
+              <div className="videoInfoText">
+                <h1 className="videoTitle">{title}</h1>
+                <div className="videoData">
+                  <p className="videoUserName">{userName}</p>
+                  <span className="videoMetaData">{metaData}</span>
                 </div>
               </div>
             </div>
@@ -332,6 +341,7 @@
             title:"인정받는 개발자를 만듭니다.",
             userName:"스테이지어스",
             metaData:"조회수 13만회 • 1개월 전",
+            //섬네일도 가져오기
           },
           {
             title:"인정받는 개발자를 만듭니다.",
@@ -421,6 +431,7 @@
             <NavComponent />
             <NavSlideBackgroundComponent />
             <NavSlideComponent />
+            
             <MainComponent />
           </React.Fragment>
         );

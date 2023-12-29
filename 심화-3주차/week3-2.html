@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const Schedule = (props) => {
+        const { data } = props;
+        const [caution, setCaution] = React.useState(false);
+
+        const tmpP = React.useRef();
+
+        React.useEffect(() => {
+          //컴포넌트가 다 랜더링 된 직후에 실행될 코드
+          //이 공간에 있는 코드는 Re-redring 시에는 다시 실행되지 않음
+          if (data === "") {
+            setCaution(true);
+          }
+          // []는 참조영역
+        }, []);
+        return (
+          <React.Fragment>
+            {caution ? <h3>일정이 없습니다</h3> : <p>{data}</p>}
+          </React.Fragment>
+        );
+      };
+      const App = () => {
+        const data = ["밥 먹기", "놀기", "", "코딩하기", "공부하기", ""];
+        return data.map((elem) => {
+          return <Schedule data={elem} />;
+        });
+      };
+
+      window.onload = () => {
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+      };
+    </script>
+  </body>
+</html>
