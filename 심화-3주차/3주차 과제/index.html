@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./css/header.css">
+    <link rel="stylesheet" type="text/css" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/navSlide.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <title>3주차 과제</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+      const {useState} = React;
+      
+      const useHover = (initialColor,hoverColor)=>{
+        const [backgroundColor,setBackgroundColor] = useState(initialColor)
+        const mouseOver = ()=>{
+          setBackgroundColor(hoverColor)
+        }
+        const mouseOut = ()=>{
+          setBackgroundColor(initialColor)
+        }
+        return {backgroundColor,mouseOver,mouseOut}
+      }
+
+
+
+      const MenuComponent = (props) => {
+        const{backgroundColor,mouseOver,mouseOut} = useHover("inherit","var(--color-cccccc)")
+        const [navOpen,setNavOpen] = useState(false)
+
+        const menuToggleEvent = (e) => {
+          setNavOpen(!navOpen);
+        };
+
+        const {menuContainerClassName} = props.menuHeader
+        return (
+          <div className={menuContainerClassName} onClick={menuToggleEvent}>
+            <div className="menuBarDiv" onMouseOver={mouseOver} onMouseOut={mouseOut} style={{backgroundColor}}>
+              <img className="menuBar" src="./week2Img/menuBtn.png" alt="메뉴 버튼"/>
+            </div>
+            <a className="mainLogo" href="index.html">
+              <img
+                src="./week2Img/mainLogo.jpg"
+                alt="유튜브 메인로고"
+                id="logoImg"
+              />
+            </a>
+          </div>
+        );
+      };
+
+      const usePTagOpacity = (initialOpacity)=>{
+        const [opacity,setOpacity] = useState(initialOpacity)
+        const pTagMouseOver = ()=>{
+          setOpacity(1)
+        }
+        const pTagMouseOut = ()=>{
+          setOpacity(0)
+        }
+        return {opacity, pTagMouseOver, pTagMouseOut}
+      }
+
+      const IconBtnComponent = (props) => {
+        const {opacity, pTagMouseOver, pTagMouseOut} = usePTagOpacity(0)
+        const {
+          key,
+          className,
+          iconId,
+          iconClassName,
+          pTagClassName,
+          textContent,
+        } = props.iconData;
+        return (
+          className == "" ? (
+            <i id={iconId} className={iconClassName}></i>
+          ) : (
+            <div key={key} className={className}>
+              <i id={iconId} className={iconClassName} onMouseOver={pTagMouseOver} onMouseOut={pTagMouseOut}></i>
+              <p className={pTagClassName} style={{ opacity}}>{textContent}</p>
+            </div>
+          )
+        );
+      };
+      const HeaderComponent = ()=>{
+        const {opacity, pTagMouseOver, pTagMouseOut} = usePTagOpacity(0)
+
+        const iconData = [
+          {
+            key: "pulsIcon",
+            className: "plusContainer",
+            iconId: "plusIcon",
+            iconClassName: "fa-regular fa-square-plus",
+            pTagClassName: "plusBtnAlt Alt",
+            textContent: "만들기",
+          },
+          {
+            key: "bellIcon",
+            className: "bellContainer",
+            iconId: "bellIcon",
+            iconClassName: "fa-regular fa-bell",
+            pTagClassName: "bellBtnAlt Alt",
+            textContent: "알림",
+          },
+          {
+            key: "userIcon",
+            className: "",
+            iconId: "userIcon",
+            iconClassName: "fa-regular fa-circle-user",
+            pTagClassName: "",
+            textContent: "",
+          },
+        ];
+
+
+
+        return(
+          <header className="header">
+            <MenuComponent  menuHeader={{ menuContainerClassName: "menuContainer" }}/>
+            <section className="center">
+              <div className="searchBarContainer">
+                <input
+                  id="searchInput"
+                  className="searchInput"
+                  type="text"
+                  placeholder="검색"
+                />
+
+                <i id="keybordImg" className="fa-solid fa-keyboard"></i>
+              </div>
+              <div className="searchBtnContainer">
+                <i
+                  className="fa-solid fa-magnifying-glass"
+                  id="searchGlass"
+                ></i>
+              </div>
+              <div className="voiceBtnContainer">
+                <i id="voiceIcon" className="fa-solid fa-microphone" onMouseOver={pTagMouseOver} onMouseOut={pTagMouseOut}></i>
+                <p className="voiceBtnAlt Alt" style={{opacity : opacity}}>음성으로 검색</p>
+              </div>
+            </section>
+            <section className="right">
+              {iconData.map((elem) => {
+                return <IconBtnComponent iconData={elem} key={elem.key}
+              />;
+              })}
+            </section>
+          </header>
+        )
+      }
+
+      const NavIconComponent = (props)=>{
+        const [navIconMouseHover,setNavIconMouseHover] = useState()
+        const navIconMouseOverEvent = (e)=>{
+            const target = e.target.closest("div")
+            target.style.backgroundColor = "var(--color-f2f2f2)"
+        }
+        const navIconMouseOutEvent = (e)=>{
+          const target = e.target.closest("div")
+          target.style.backgroundColor = "inherit"
+        }
+        const {
+          key,
+          id,
+          className,
+          iconClassName,
+          pTagClassName,
+          textContent,
+        } = props.iconData;
+        return (
+          <div key={key} id={id} className={className}>
+            <i className={iconClassName}></i>
+            <p className={pTagClassName}>{textContent}</p>
+          </div>
+        )
+      }
+
+      const App = () => {
+        return (
+          <HeaderComponent />
+        )
+      };
+
+      window.onload = () => {
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+      };
+    </script>
+    <script
+        src="https://kit.fontawesome.com/e8e74eadbe.js"
+        crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -98,9 +98,6 @@
           pTag.style.opacity = 0;
           console.log(2)
         }
-        const testClick = ()=>{
-          console.log("안녕")
-        }
         const iconData = [
           {
             key: "pulsIcon",
@@ -148,7 +145,7 @@
             </section>
             <section className="right">
               {iconData.map((elem) => {
-                return <IconBtnComponent iconData={elem} key={elem.key} onClick={testClick} onMouseOver={headerIconMouseOverEvent} onMouseOut={headerIconMouseOutEvent
+                return <IconBtnComponent iconData={elem} key={elem.key} onMouseOver={headerIconMouseOverEvent} onMouseOut={headerIconMouseOutEvent
                 }/>;
                 //해결만 해옴
                 //알아오기
@@ -166,13 +163,9 @@
 
       const NavIconComponent = (props)=>{
         const navIconMouseOverEvent = (e)=>{
-          if(e.target.tagName === "DIV" || e.target.tagName === "I" || e.target.tagName === "P"){
-
             const target = e.target.closest("div")
             target.style.backgroundColor = "var(--color-f2f2f2)"
-          }
         }
-    
         const navIconMouseOutEvent = (e)=>{
           if(e.target.tagName === "DIV" || e.target.tagName === "I" || e.target.tagName === "P"){
 
