@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" type="text/css" href="./css/header.css">
-    <link rel="stylesheet" type="text/css" href="./css/nav.css">
-    <link rel="stylesheet" href="./css/navSlide.css">
-    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./css/header.css" />
+    <link rel="stylesheet" type="text/css" href="./css/nav.css" />
+    <link rel="stylesheet" href="./css/navSlide.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <title>3주차 과제</title>
     <script
       crossorigin
@@ -22,41 +22,49 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
+      const { useState, useEffect } = React;
 
-      const {useState, useEffect} = React;
-      
-      const useHover = (initialStyle,hoverStyle)=>{
-        const [style,setStyle] = useState(initialStyle)
-        const mouseOver = ()=>{
-          setStyle(hoverStyle)
-        }
-        const mouseOut = ()=>{
-          setStyle(initialStyle)
-        }
-        return {style,mouseOver,mouseOut}
-      }
-      
-      const MenuComponent = (props) => {
-        const{style,mouseOver,mouseOut} = useHover("inherit","var(--color-cccccc)")
-
-        const {menuContainerClassName} = props.menuHeader
-
-        const menuToggleEvent = (e) => {
-          const navSlide = document.querySelector(".navSlide");
-          const backgroundDiv = document.querySelector(".backgroundDiv");
-          if (backgroundDiv.classList.contains("displayNone")) {
-            navSlide.style.left = "0%";
-            backgroundDiv.classList.remove("displayNone");
-          } else {
-            navSlide.style.left = "-100%";
-            backgroundDiv.classList.add("displayNone");
-          }
+      const useHover = (initialStyle, hoverStyle) => {
+        const [style, setStyle] = useState(initialStyle);
+        const mouseOver = () => {
+          setStyle(hoverStyle);
         };
-        
+        const mouseOut = () => {
+          setStyle(initialStyle);
+        };
+        return { style, mouseOver, mouseOut };
+      };
+      //이름 수정 로고 컴포넌트
+      const MenuComponent = (props) => {
+        const { style, mouseOver, mouseOut } = useHover(
+          "inherit",
+          "var(--color-cccccc)"
+        );
+
+        const { menuContainerClassName } = props.menuHeader;
+        const { isNavOpen, setIsNavOpen } = props;
+
+        const menuToggleEvent = () => {
+          setIsNavOpen(!isNavOpen);
+        };
+        //스테이트를 사용하면 헤더와, 네브가 합쳐짐
+        //스테이트를 사용해서 네브의 열림 닫힘을 업데이트하는 걸로 만들고
+        //app에는 헤더 매인 그대로 두고 열린 네브를 헤더 컴포넌트 안에 와이드 네브를 넣어서 업데이트 하는 것도 방법
+        //수정해보기
         return (
           <div className={menuContainerClassName}>
-            <div className="menuBarDiv" onMouseOver={mouseOver} onMouseOut={mouseOut} style={{backgroundColor : style}} onClick={menuToggleEvent}>
-              <img className="menuBar" src="./week2Img/menuBtn.png" alt="메뉴 버튼"/>
+            <div
+              className="menuBarDiv"
+              onMouseOver={mouseOver}
+              onMouseOut={mouseOut}
+              style={{ backgroundColor: style }}
+              onClick={menuToggleEvent}
+            >
+              <img
+                className="menuBar"
+                src="./week2Img/menuBtn.png"
+                alt="메뉴 버튼"
+              />
             </div>
             <a className="mainLogo" href="index.html">
               <img
@@ -70,29 +78,35 @@
       };
 
       const IconBtnComponent = (props) => {
-        const {style, mouseOver, mouseOut} = useHover(0,1)
-        const {
-          key,
-          className,
-          iconId,
-          iconSrc,
-          pTagClassName,
-          textContent,
-        } = props.iconData;
-        return (
-          className == "" ? (
-            <img id={iconId} src={iconSrc} alt={key} />
-          ) : (
-            <div className={className}>
-              <img id={iconId} src={iconSrc} alt={key} onMouseOver={mouseOver} onMouseOut={mouseOut}/>
-              <p className={pTagClassName} style={{opacity : style}}>{textContent}</p>
-            </div>
-          )
+        const { style, mouseOver, mouseOut } = useHover(0, 1);
+        //매개변수 수정
+        const { key, className, iconId, iconSrc, pTagClassName, textContent } =
+          props.iconData;
+        return className == "" ? (
+          <img id={iconId} src={iconSrc} alt={key} />
+        ) : (
+          //위 조건은 빼는 것이 좋음 아래에서 바꿀 수 있게
+          <div className={className}>
+            <img
+              id={iconId}
+              src={iconSrc}
+              alt={key}
+              onMouseOver={mouseOver}
+              onMouseOut={mouseOut}
+            />
+            <p className={pTagClassName} style={{ opacity: style }}>
+              {textContent}
+            </p>
+            {/*새로운 컴포넌트가 만들어질 때 조건이 계속 추가되어야 하는 구조는 좋지 않음
+            위 이론을 디자인 패턴화 한 방식이 존재 결합도 디자인 패턴 찾아보기*/}
+          </div>
         );
       };
 
-      const HeaderComponent = ()=>{
-        const {style, mouseOver, mouseOut} = useHover(0,1)
+      const HeaderComponent = (props) => {
+        const { style, mouseOver, mouseOut } = useHover(0, 1);
+        //이름 부적합 범위가 너무 좁음 opacity = 1을 보내는 것
+        const { isNavOpen, setIsNavOpen } = props;
 
         const iconData = [
           {
@@ -115,15 +129,20 @@
             key: "userIcon",
             className: "",
             iconId: "userIcon",
-            iconSrc: "https://yt3.ggpht.com/yti/AGOGRCqKQI9WPqH2JQ6d9UfO7H3qcrM7D4zTtLiizl8K=s88-c-k-c0x00ffffff-no-rj",
+            iconSrc:
+              "https://yt3.ggpht.com/yti/AGOGRCqKQI9WPqH2JQ6d9UfO7H3qcrM7D4zTtLiizl8K=s88-c-k-c0x00ffffff-no-rj",
             pTagClassName: "",
             textContent: "",
           },
         ];
 
-        return(
+        return (
           <header className="header">
-            <MenuComponent  menuHeader={{ menuContainerClassName: "menuContainer" }}/>
+            <MenuComponent
+              menuHeader={{ menuContainerClassName: "menuContainer" }}
+              isNavOpen={isNavOpen}
+              setIsNavOpen={setIsNavOpen}
+            />
             <section className="center">
               <div className="searchBarContainer">
                 <input
@@ -142,22 +161,31 @@
                 ></i>
               </div>
               <div className="voiceBtnContainer">
-                <i id="voiceIcon" className="fa-solid fa-microphone" onMouseOver={mouseOver} onMouseOut={mouseOut}></i>
-                <p className="voiceBtnAlt Alt" style={{opacity : style}}>음성으로 검색</p>
+                <i
+                  id="voiceIcon"
+                  className="fa-solid fa-microphone"
+                  onMouseOver={mouseOver}
+                  onMouseOut={mouseOut}
+                ></i>
+                <p className="voiceBtnAlt Alt" style={{ opacity: style }}>
+                  음성으로 검색
+                </p>
               </div>
             </section>
             <section className="right">
               {iconData.map((elem) => {
-                return <IconBtnComponent iconData={elem} key={elem.key}
-              />;
+                return <IconBtnComponent iconData={elem} key={elem.key} />;
               })}
             </section>
           </header>
-        )
-      }
+        );
+      };
 
-      const NavIconComponent = (props)=>{
-        const{style,mouseOver,mouseOut} = useHover("inherit","var(--color-f2f2f2)")
+      const NavIconComponent = (props) => {
+        const { style, mouseOver, mouseOut } = useHover(
+          "inherit",
+          "var(--color-f2f2f2)"
+        );
         const {
           key,
           id,
@@ -167,54 +195,60 @@
           textContent,
         } = props.iconData;
         return (
-          <div className={className} onMouseOver={mouseOver} onMouseOut={mouseOut} style={{backgroundColor : style}}>
+          <div
+            className={className}
+            onMouseOver={mouseOver}
+            onMouseOut={mouseOut}
+            style={{ backgroundColor: style }}
+          >
             <i className={iconClassName}></i>
             <p className={pTagClassName}>{textContent}</p>
           </div>
-        )
-      }
+        );
+      };
 
-      const NavComponent = ()=>{
+      const NavComponent = () => {
         const iconData = [
           {
-            key:"home",
-            className:"navSectionLogo",
-            iconClassName:"fa-solid fa-house",
-            pTagClassName:"navSectionText",
-            textContent:"홈",
+            key: "home",
+            className: "navSectionLogo",
+            iconClassName: "fa-solid fa-house",
+            pTagClassName: "navSectionText",
+            textContent: "홈",
           },
           {
-            key:"shorts",
-            className:"navSectionLogo",
-            iconClassName:"fa-brands fa-youtube",
-            pTagClassName:"navSectionText",
-            textContent:"Shorts",
+            key: "shorts",
+            className: "navSectionLogo",
+            iconClassName: "fa-brands fa-youtube",
+            pTagClassName: "navSectionText",
+            textContent: "Shorts",
           },
           {
-            key:"subscriber",
-            className:"navSectionLogo",
-            iconClassName:"fa-solid fa-pen-to-square",
-            pTagClassName:"navSectionText",
-            textContent:"Subscriber",
+            key: "subscriber",
+            className: "navSectionLogo",
+            iconClassName: "fa-solid fa-pen-to-square",
+            pTagClassName: "navSectionText",
+            textContent: "Subscriber",
           },
           {
-            key:"locker",
-            className:"navSectionLogo",
-            iconClassName:"fa-solid fa-photo-film",
-            pTagClassName:"navSectionText",
-            textContent:"보관함",
+            key: "locker",
+            className: "navSectionLogo",
+            iconClassName: "fa-solid fa-photo-film",
+            pTagClassName: "navSectionText",
+            textContent: "보관함",
           },
         ];
         return (
           <nav className="nav">
-            {iconData.map((elem)=>{
-              return <NavIconComponent iconData={elem} key={elem.key} />
+            {iconData.map((elem) => {
+              return <NavIconComponent iconData={elem} key={elem.key} />;
             })}
           </nav>
-        )
-      }
+        );
+      };
 
-      const NavSlideComponent = ()=>{        
+      const NavSlideComponent = (props) => {
+        const { isNavOpen, setIsNavOpen } = props;
         const iconData = [
           {
             key: "navSlideHomeLogo",
@@ -248,40 +282,77 @@
             pTagClassName: "navSlideSectionText",
             textContent: "보관함",
           },
-        ]
+        ];
+        const navStyle = {
+          left: isNavOpen ? "0" : "-100%",
+        };
 
-        return(
+        return (
           <React.Fragment>
-            <nav className="navSlide">
-              <MenuComponent  menuHeader={{ menuContainerClassName: "navSlideHeader" }}/>
-              {iconData.map(elem=>{
-                return <NavIconComponent iconData={elem} key={elem.key}/>
+            <nav className="navSlide" style={navStyle}>
+              <MenuComponent
+                menuHeader={{ menuContainerClassName: "navSlideHeader" }}
+              />
+              {iconData.map((elem) => {
+                return <NavIconComponent iconData={elem} key={elem.key} />;
               })}
             </nav>
-            <div className="backgroundDiv displayNone">
-            </div>
+            <div className="backgroundDiv displayNone"></div>
           </React.Fragment>
-        )
-      }
+        );
+      };
 
-      const VideoArticleComponent = (props)=>{
-        const {style,mouseOver, mouseOut} = useHover("brightness(100%)","brightness(80%)")
+      const HeaderNavComponent = () => {
+        const [isNavOpen, setIsNavOpen] = useState(false);
+        //useState 조금 더 쉽게 주는 방법 찾아보기
+        return (
+          <>
+            <HeaderComponent
+              isNavOpen={isNavOpen}
+              setIsNavOpen={setIsNavOpen}
+            />
+            <NavSlideComponent
+              isNavOpen={isNavOpen}
+              setIsNavOpen={setIsNavOpen}
+            />
+          </>
+        );
+      };
+      const VideoArticleComponent = (props) => {
+        const { style, mouseOver, mouseOut } = useHover(
+          "brightness(100%)",
+          "brightness(80%)"
+        );
 
-        const borderRadius = style === "brightness(100%)" ? "10px" : "0"
+        const borderRadius = style === "brightness(100%)" ? "10px" : "0";
 
-        const {title,userName,metaData,userImg,videoImg} = props.videoTextData
+        const { title, userName, metaData, userImg, videoImg } =
+          props.videoTextData;
 
         const maxLength = 30;
         let videoTitle = title;
 
-        if(title.length > maxLength){
-          videoTitle = `${title.substring(0,maxLength)}...`
+        if (title.length > maxLength) {
+          videoTitle = `${title.substring(0, maxLength)}...`;
         }
+        //이것도 커스텀 훅으로 처리하는 것이 더 좋음 함수로 만들어도 되고 전처리 작업은 모듈이 더 적합 css가 더욱 적합
+        //모듈로 만들었을때 좋은 것 현재 시간과 비디오 업로드 시간을 빼서 몇 분 전으로 나왔는지 보여주고 싶을 때 Ex) 1분전 개시됨
 
-        return(
-          <article id="videoArticle" className="videoArticle" onMouseOver={mouseOver} onMouseOut={mouseOut}>
+        return (
+          <article
+            id="videoArticle"
+            className="videoArticle"
+            onMouseOver={mouseOver}
+            onMouseOut={mouseOut}
+          >
             <div className="videoImgDiv">
-              <img id="videoImg" className="videoImg" style={{filter : style, borderRadius : borderRadius}} src={videoImg} alt="영상 이미지"/>
+              <img
+                id="videoImg"
+                className="videoImg"
+                style={{ filter: style, borderRadius: borderRadius }}
+                src={videoImg}
+                alt="영상 이미지"
+              />
             </div>
             <div className="videoInfo">
               <i id="dot" className="fa-solid fa-ellipsis-vertical"></i>
@@ -295,117 +366,150 @@
               </div>
             </div>
           </article>
-        )
-      }
+        );
+      };
 
-      const MainComponent = ()=>{
+      const MainComponent = () => {
         const videoTextData = [
           {
-            title:"Playlist | 겨울을 담은, 재즈",
-            userName:"기분Jazz네 | Mood is Jazz",
-            metaData:"조회수 42만회 • 2일 전",
-            userImg : "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj",
-            videoImg : "https://i.ytimg.com/vi/Yu_X5ZS8HRo/hq720_live.jpg?sqp=CJiH1KwG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARSydSuWdSNMYZQmWg0t28i1eF_A",
+            title: "Playlist | 겨울을 담은, 재즈",
+            userName: "기분Jazz네 | Mood is Jazz",
+            metaData: "조회수 42만회 • 2일 전",
+            userImg:
+              "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/Yu_X5ZS8HRo/hq720_live.jpg?sqp=CJiH1KwG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARSydSuWdSNMYZQmWg0t28i1eF_A",
           },
           {
-            title:"[Playlist] 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들 첫소절부터 너무 좋아서 호불호 안 갈리는 팝송들",
-            userName:"Deep Mood",
-            metaData:"조회수 8.9천회 • 1개월 전",
-            userImg: "https://yt3.ggpht.com/XuKC1kmWGrTiPmFIon1kEZf8t54TCqi-uYXqBYQ1NFq0BKDZycvAFtriYtjC3gNqjISpTWYa=s68-c-k-c0x00ffffff-no-rj",    
-            videoImg: "https://i.ytimg.com/vi/7ucNTZa6erM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8Anlapo9ZxImhNCoS2N-PZQTvzg"      
+            title:
+              "[Playlist] 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들 첫소절부터 너무 좋아서 호불호 안 갈리는 팝송들",
+            userName: "Deep Mood",
+            metaData: "조회수 8.9천회 • 1개월 전",
+            userImg:
+              "https://yt3.ggpht.com/XuKC1kmWGrTiPmFIon1kEZf8t54TCqi-uYXqBYQ1NFq0BKDZycvAFtriYtjC3gNqjISpTWYa=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/7ucNTZa6erM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8Anlapo9ZxImhNCoS2N-PZQTvzg",
           },
           {
-            title:"[뉴스 '꾹'] '5,400명 당원 가입' 고무된 이준석, '이삭줍기 아니냐'는 지적엔..(2024.01.03/MBC뉴스)",
-            userName:"MBCNEWS",
-            metaData:"조회수 5.8만회 • 1시간 전",
-            userImg: "https://yt3.ggpht.com/ytc/AIf8zZSV9mOz05LJ8ZASnsVwQnTxckiWDS1NwH-GF2nUtQ=s68-c-k-c0x00ffffff-no-rj",
-            videoImg: "https://i.ytimg.com/vi/RIEJ22hybWE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC44G69RxtM3H1oQeKv54i6ROp0VQ",
+            title:
+              "[뉴스 '꾹'] '5,400명 당원 가입' 고무된 이준석, '이삭줍기 아니냐'는 지적엔..(2024.01.03/MBC뉴스)",
+            userName: "MBCNEWS",
+            metaData: "조회수 5.8만회 • 1시간 전",
+            userImg:
+              "https://yt3.ggpht.com/ytc/AIf8zZSV9mOz05LJ8ZASnsVwQnTxckiWDS1NwH-GF2nUtQ=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/RIEJ22hybWE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC44G69RxtM3H1oQeKv54i6ROp0VQ",
           },
           {
-            title:"[Playlist] 아니, 이런 노래는 어떻게 아는거야?? 너무 좋자나... | 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들",
-            userName:"사랑 𝑇𝘩𝑒 𝑀𝘰𝑜𝘯 𝘢𝑛𝘥 𝘛ℎ𝘦 𝘎𝑖𝘳𝑙",
-            metaData:"조회수 13만회 • 1개월 전",
-            userImg: "https://yt3.ggpht.com/umr8FcGbIRGOY0qMYau4mpSf_q3og-MpCD3e0YbOejGVkmmzfMSuNYI_dg9rxI__ol6SJsm-krU=s68-c-k-c0x00ffffff-no-rj",
-            videoImg: "https://i.ytimg.com/vi/uQb-4LDXupw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRhc_c29OnsUiIkxne0ZnANIMi0A",
+            title:
+              "[Playlist] 아니, 이런 노래는 어떻게 아는거야?? 너무 좋자나... | 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들",
+            userName: "사랑 𝑇𝘩𝑒 𝑀𝘰𝑜𝘯 𝘢𝑛𝘥 𝘛ℎ𝘦 𝘎𝑖𝘳𝑙",
+            metaData: "조회수 13만회 • 1개월 전",
+            userImg:
+              "https://yt3.ggpht.com/umr8FcGbIRGOY0qMYau4mpSf_q3og-MpCD3e0YbOejGVkmmzfMSuNYI_dg9rxI__ol6SJsm-krU=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/uQb-4LDXupw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRhc_c29OnsUiIkxne0ZnANIMi0A",
           },
           {
-            title:"Playlist | 겨울을 담은, 재즈",
-            userName:"기분Jazz네 | Mood is Jazz",
-            metaData:"조회수 42만회 • 2일 전",
-            userImg : "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj",
-            videoImg : "https://i.ytimg.com/vi/Yu_X5ZS8HRo/hq720_live.jpg?sqp=CJiH1KwG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARSydSuWdSNMYZQmWg0t28i1eF_A",
+            title: "Playlist | 겨울을 담은, 재즈",
+            userName: "기분Jazz네 | Mood is Jazz",
+            metaData: "조회수 42만회 • 2일 전",
+            userImg:
+              "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/Yu_X5ZS8HRo/hq720_live.jpg?sqp=CJiH1KwG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARSydSuWdSNMYZQmWg0t28i1eF_A",
           },
           {
-            title:"[Playlist] 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들 첫소절부터 너무 좋아서 호불호 안 갈리는 팝송들",
-            userName:"Deep Mood",
-            metaData:"조회수 8.9천회 • 1개월 전",
-            userImg: "https://yt3.ggpht.com/XuKC1kmWGrTiPmFIon1kEZf8t54TCqi-uYXqBYQ1NFq0BKDZycvAFtriYtjC3gNqjISpTWYa=s68-c-k-c0x00ffffff-no-rj",    
-            videoImg: "https://i.ytimg.com/vi/7ucNTZa6erM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8Anlapo9ZxImhNCoS2N-PZQTvzg"      
+            title:
+              "[Playlist] 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들 첫소절부터 너무 좋아서 호불호 안 갈리는 팝송들",
+            userName: "Deep Mood",
+            metaData: "조회수 8.9천회 • 1개월 전",
+            userImg:
+              "https://yt3.ggpht.com/XuKC1kmWGrTiPmFIon1kEZf8t54TCqi-uYXqBYQ1NFq0BKDZycvAFtriYtjC3gNqjISpTWYa=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/7ucNTZa6erM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8Anlapo9ZxImhNCoS2N-PZQTvzg",
           },
           {
-            title:"[뉴스 '꾹'] '5,400명 당원 가입' 고무된 이준석, '이삭줍기 아니냐'는 지적엔..(2024.01.03/MBC뉴스)",
-            userName:"MBCNEWS",
-            metaData:"조회수 5.8만회 • 1시간 전",
-            userImg: "https://yt3.ggpht.com/ytc/AIf8zZSV9mOz05LJ8ZASnsVwQnTxckiWDS1NwH-GF2nUtQ=s68-c-k-c0x00ffffff-no-rj",
-            videoImg: "https://i.ytimg.com/vi/RIEJ22hybWE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC44G69RxtM3H1oQeKv54i6ROp0VQ",
+            title:
+              "[뉴스 '꾹'] '5,400명 당원 가입' 고무된 이준석, '이삭줍기 아니냐'는 지적엔..(2024.01.03/MBC뉴스)",
+            userName: "MBCNEWS",
+            metaData: "조회수 5.8만회 • 1시간 전",
+            userImg:
+              "https://yt3.ggpht.com/ytc/AIf8zZSV9mOz05LJ8ZASnsVwQnTxckiWDS1NwH-GF2nUtQ=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/RIEJ22hybWE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC44G69RxtM3H1oQeKv54i6ROp0VQ",
           },
           {
-            title:"[Playlist] 아니, 이런 노래는 어떻게 아는거야?? 너무 좋자나... | 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들",
-            userName:"사랑 𝑇𝘩𝑒 𝑀𝘰𝑜𝘯 𝘢𝑛𝘥 𝘛ℎ𝘦 𝘎𝑖𝘳𝑙",
-            metaData:"조회수 13만회 • 1개월 전",
-            userImg: "https://yt3.ggpht.com/umr8FcGbIRGOY0qMYau4mpSf_q3og-MpCD3e0YbOejGVkmmzfMSuNYI_dg9rxI__ol6SJsm-krU=s68-c-k-c0x00ffffff-no-rj",
-            videoImg: "https://i.ytimg.com/vi/uQb-4LDXupw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRhc_c29OnsUiIkxne0ZnANIMi0A",
+            title:
+              "[Playlist] 아니, 이런 노래는 어떻게 아는거야?? 너무 좋자나... | 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들",
+            userName: "사랑 𝑇𝘩𝑒 𝑀𝘰𝑜𝘯 𝘢𝑛𝘥 𝘛ℎ𝘦 𝘎𝑖𝘳𝑙",
+            metaData: "조회수 13만회 • 1개월 전",
+            userImg:
+              "https://yt3.ggpht.com/umr8FcGbIRGOY0qMYau4mpSf_q3og-MpCD3e0YbOejGVkmmzfMSuNYI_dg9rxI__ol6SJsm-krU=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/uQb-4LDXupw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRhc_c29OnsUiIkxne0ZnANIMi0A",
           },
           {
-            title:"Playlist | 겨울을 담은, 재즈",
-            userName:"기분Jazz네 | Mood is Jazz",
-            metaData:"조회수 42만회 • 2일 전",
-            userImg : "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj",
-            videoImg : "https://i.ytimg.com/vi/Yu_X5ZS8HRo/hq720_live.jpg?sqp=CJiH1KwG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARSydSuWdSNMYZQmWg0t28i1eF_A",
+            title: "Playlist | 겨울을 담은, 재즈",
+            userName: "기분Jazz네 | Mood is Jazz",
+            metaData: "조회수 42만회 • 2일 전",
+            userImg:
+              "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/Yu_X5ZS8HRo/hq720_live.jpg?sqp=CJiH1KwG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLARSydSuWdSNMYZQmWg0t28i1eF_A",
           },
           {
-            title:"[Playlist] 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들 첫소절부터 너무 좋아서 호불호 안 갈리는 팝송들",
-            userName:"Deep Mood",
-            metaData:"조회수 8.9천회 • 1개월 전",
-            userImg: "https://yt3.ggpht.com/XuKC1kmWGrTiPmFIon1kEZf8t54TCqi-uYXqBYQ1NFq0BKDZycvAFtriYtjC3gNqjISpTWYa=s68-c-k-c0x00ffffff-no-rj",    
-            videoImg: "https://i.ytimg.com/vi/7ucNTZa6erM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8Anlapo9ZxImhNCoS2N-PZQTvzg"      
+            title:
+              "[Playlist] 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들 첫소절부터 너무 좋아서 호불호 안 갈리는 팝송들",
+            userName: "Deep Mood",
+            metaData: "조회수 8.9천회 • 1개월 전",
+            userImg:
+              "https://yt3.ggpht.com/XuKC1kmWGrTiPmFIon1kEZf8t54TCqi-uYXqBYQ1NFq0BKDZycvAFtriYtjC3gNqjISpTWYa=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/7ucNTZa6erM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8Anlapo9ZxImhNCoS2N-PZQTvzg",
           },
           {
-            title:"[뉴스 '꾹'] '5,400명 당원 가입' 고무된 이준석, '이삭줍기 아니냐'는 지적엔..(2024.01.03/MBC뉴스)",
-            userName:"MBCNEWS",
-            metaData:"조회수 5.8만회 • 1시간 전",
-            userImg: "https://yt3.ggpht.com/ytc/AIf8zZSV9mOz05LJ8ZASnsVwQnTxckiWDS1NwH-GF2nUtQ=s68-c-k-c0x00ffffff-no-rj",
-            videoImg: "https://i.ytimg.com/vi/RIEJ22hybWE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC44G69RxtM3H1oQeKv54i6ROp0VQ",
+            title:
+              "[뉴스 '꾹'] '5,400명 당원 가입' 고무된 이준석, '이삭줍기 아니냐'는 지적엔..(2024.01.03/MBC뉴스)",
+            userName: "MBCNEWS",
+            metaData: "조회수 5.8만회 • 1시간 전",
+            userImg:
+              "https://yt3.ggpht.com/ytc/AIf8zZSV9mOz05LJ8ZASnsVwQnTxckiWDS1NwH-GF2nUtQ=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/RIEJ22hybWE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC44G69RxtM3H1oQeKv54i6ROp0VQ",
           },
           {
-            title:"[Playlist] 아니, 이런 노래는 어떻게 아는거야?? 너무 좋자나... | 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들",
-            userName:"사랑 𝑇𝘩𝑒 𝑀𝘰𝑜𝘯 𝘢𝑛𝘥 𝘛ℎ𝘦 𝘎𝑖𝘳𝑙",
-            metaData:"조회수 13만회 • 1개월 전",
-            userImg: "https://yt3.ggpht.com/umr8FcGbIRGOY0qMYau4mpSf_q3og-MpCD3e0YbOejGVkmmzfMSuNYI_dg9rxI__ol6SJsm-krU=s68-c-k-c0x00ffffff-no-rj",
-            videoImg: "https://i.ytimg.com/vi/uQb-4LDXupw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRhc_c29OnsUiIkxne0ZnANIMi0A",
+            title:
+              "[Playlist] 아니, 이런 노래는 어떻게 아는거야?? 너무 좋자나... | 언제 들어도 좋지만 겨울에 들으면 더 좋은 팝송들",
+            userName: "사랑 𝑇𝘩𝑒 𝑀𝘰𝑜𝘯 𝘢𝑛𝘥 𝘛ℎ𝘦 𝘎𝑖𝘳𝑙",
+            metaData: "조회수 13만회 • 1개월 전",
+            userImg:
+              "https://yt3.ggpht.com/umr8FcGbIRGOY0qMYau4mpSf_q3og-MpCD3e0YbOejGVkmmzfMSuNYI_dg9rxI__ol6SJsm-krU=s68-c-k-c0x00ffffff-no-rj",
+            videoImg:
+              "https://i.ytimg.com/vi/uQb-4LDXupw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBRhc_c29OnsUiIkxne0ZnANIMi0A",
           },
-
-        ]
+        ];
 
         return (
           <main className="videoMain">
-            {videoTextData.map((elem,index)=>{
-              return <VideoArticleComponent videoTextData={elem} key={index} />
+            {videoTextData.map((elem, index) => {
+              return <VideoArticleComponent videoTextData={elem} key={index} />;
             })}
           </main>
-        )
-      }
+        );
+      };
 
       const App = () => {
-
         return (
           <React.Fragment>
-            <HeaderComponent />
+            {/*<HeaderComponent />*/}
+            <HeaderNavComponent />
             <NavComponent />
-            <NavSlideComponent />
+
+            {/*<NavSlideComponent />*/}
             <MainComponent />
           </React.Fragment>
-        )
+        );
       };
 
       window.onload = () => {
@@ -413,8 +517,8 @@
       };
     </script>
     <script
-        src="https://kit.fontawesome.com/e8e74eadbe.js"
-        crossorigin="anonymous"
+      src="https://kit.fontawesome.com/e8e74eadbe.js"
+      crossorigin="anonymous"
     ></script>
   </body>
 </html>
