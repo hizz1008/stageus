@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="id_value" />
+    <input type="text" id="pw_value" />
+    <button onclick="accountEvent()">로그인</button>
+    <button onclick="clickEvent()">/check 요청</button>
+    <script>
+      const accountEvent = async () => {
+        const idx = "stageus";
+        // query방식일 때
+        const response = await fetch(`http://3.39.66.6:4000/account?id=${idx}`);
+        // const response = await fetch(`http://3.39.66.6:3000/account/${idx}`);
+        const result = await response.json();
+        if (result.success) {
+          console.log(result.data);
+        } else {
+          console.log("실패");
+        }
+      };
+      const loginEvent = async () => {
+        const response = await fetch("http://3.39.66.6:3000/account/login", {
+          method: "POST", //호출할 api
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: document.getElementById("id_value").value,
+            pw: document.getElementById("pw_value").value,
+          }),
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          console.log("로그인 성공!");
+        } else {
+          alert(result.message);
+        }
+      };
+      const clickEvent = async () => {
+        const response = await fetch("http://3.39.66.6:3000/check");
+        const result = await response.json();
+        if (result.success) {
+          console.log(result.message);
+        } else {
+          console.log("통신 실패임!");
+        }
+      };
+    </script>
+  </body>
+</html>
